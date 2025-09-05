@@ -1,13 +1,33 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Advertisements;
 
-namespace Project.Scripts
+public class GameMenuController : MonoBehaviour
 {
-    public class GameMenuController : MonoBehaviour
+    public void PlayGame()
     {
-        public void LoadMenuScene()
+        SceneManager.LoadScene("GameScene");
+    }
+
+    public void ShowRewardedAd()
+    {
+        if (Advertisement.IsReady("rewardedVideo"))
         {
-            SceneManager.LoadScene("Menu", LoadSceneMode.Single);
+            var options = new ShowOptions { resultCallback = HandleAdResult };
+            Advertisement.Show("rewardedVideo", options);
         }
+    }
+
+    private void HandleAdResult(ShowResult result)
+    {
+        if (result == ShowResult.Finished)
+        {
+            GameManager.Instance.AddScore(50);
+        }
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
