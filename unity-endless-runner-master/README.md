@@ -50,3 +50,8 @@ One of the bigger obstacles in the game, the wall, being blasted away
 by the magic spell projectile:
 
 ![](.readme/blasting-boxes.jpg)
+
+## Credits
+This project is based on "Unity Endless Runner" by Markus Mayer and Penny de Byl.
+Modified by Bassam Alhamli in 2025.
+Licensed under the MIT License.
