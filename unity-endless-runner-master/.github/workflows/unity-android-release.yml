@@ -1,4 +1,4 @@
-name: Build Unity Android
+name: Build Unity Android Release
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build Android
+    name: Build Android Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -28,8 +28,9 @@ jobs:
           unityVersion: 2019.4.40f1
           targetPlatform: Android
 
-      - name: Upload build
-        uses: actions/upload-artifact@v3
+      - name: Upload Release Asset
+        uses: softprops/action-gh-release@v1
         with:
-          name: AndroidBuild
-          path: build/Android
+          files: build/Android/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
