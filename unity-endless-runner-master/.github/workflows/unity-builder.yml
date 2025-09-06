@@ -1,0 +1,35 @@
+name: Build Unity Android
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build Android
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          path: Library
+          key: Library-${{ runner.os }}-${{ hashFiles('**/Packages/manifest.json') }}
+          restore-keys: |
+            Library-${{ runner.os }}-
+
+      - name: Build project
+        uses: game-ci/unity-builder@v2
+        with:
+          unityVersion: 2019.4.40f1
+          targetPlatform: Android
+
+      - name: Upload build
+        uses: actions/upload-artifact@v3
+        with:
+          name: AndroidBuild
+          path: build/Android
