@@ -1,4 +1,4 @@
-name: Unity Android Release
+name: Build Unity Android
 
 on:
   push:
@@ -33,12 +33,3 @@ jobs:
         with:
           name: AndroidBuild
           path: build/Android
-
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: v${{ github.run_number }}
-          name: "Unity Android Release ${{ github.run_number }}"
-          files: build/Android/*.apk
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
